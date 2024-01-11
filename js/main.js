@@ -8,6 +8,21 @@ const form = document.querySelector('form');
 const difficultyLevelElement = document.querySelector('select');
 const button = document.querySelector('button');
 
+
+const logSomething = (something) => console.log(something);
+
+//creo la cella
+
+const createCell = (content) => {
+
+    const newCell = document.createElement('div');
+    newCell.classList.add('cell');
+    newCell.innerText = content;
+
+    return newCell;
+}
+
+
 //tutta questa logica andrebbe in una funzione a parte chiamata startGame
 form.addEventListener('submit', (e) => {
     // *impedisco il reload al submit e svuoto la griglia 
@@ -57,32 +72,3 @@ form.addEventListener('submit', (e) => {
     
 });
 
-//invece di dare la classe ad ogni cella è meglio darla alla griglia e nel css scriviamo #grid.normal cell {width; height;}
-//soluzione ancora più pro è usare var in css con 10,9 o 7 in un calc nelle .cell e cambiare quello in javascript che chiamiamo --cols-per-row
-//dopo che so che dimensioni saranno le rows e col con lo switch, devo prendere la root con query selector (':root)
-// poi root.style.setProperty('--cols-per-row', cols);
-
-//le celle vanno cliccate solo una volta ed il colore non è toggle
-
-//! milestone 1
-//serve un contatore che tiene i punti dell'utente ogni volta che clicca una cella che non è stata cliccata prima
-//mettere il punteggio in pagina, nell'header
-
-//! milestone 2
-//generiamo 16 numeri casuali (tutti diversi) nel range della difficoltà prescelta
-//serve il totale bombe ed il massimo punteggio; serve una funzione che genera le bombe
-//la funzione avrà come paramentri il numero di bombe ed il numero di celle in cui si dispongono
-//dentro ci sarà un array che va riempito con 16 numeri casuali ma tutti diversi
-//serve un ciclo while che riempie l'array finche avrà 16 numeri diversi
-
-//! milestone 3
-//quando l'utente clicca su una cella, verifichiamo se la cella che ha premuto è una delle bombe,
-//controllando se il numero di cella è nell'array delle bombe, se si la cella diventa rossa, raccogliamo iol punteggio e la
-//partita termina, se no la cella è blu ed incrementa il punteggio, attenzione a fare una logic game over con flag
-//la parte in cui controllo se ha vinto o perso e gli dico il punteggio lo metto in una funzione
-
-//! bonus 
-//alla fine scopri tutte le bombe e poi posso fare in modo che il gioco ricominci
-//richiamando la funzione startGame() che deve avere tutto il codice
-//per rivelare tutte le celle devo andarle a prendere tutte con queryselectorall e poi
-//e dare classlist e fare girare in un ciclo for(let cell of cells) {cell.classlist.add('clicked)}
