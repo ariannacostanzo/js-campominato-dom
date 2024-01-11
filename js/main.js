@@ -75,13 +75,13 @@ const endGame = (score, hasWon, bombs, revealFunction) => {
     
     if(hasWon) {
         winContainer.classList.remove('d-none');
-        logSomething('Hai perso, il tuo punteggio è: ' + score);
+        logSomething('Hai vinto');
     } else {
         if (score > bestScore) {
             bestScore = score;
         }
         loseContainer.classList.remove('d-none');
-        logSomething('Hai vinto');
+        logSomething('Hai perso, il tuo punteggio è: ' + score);
         scoreText.innerHTML = `Il tuo punteggio è: <strong>${score}</strong>.`
         bestScoreContainer.innerHTML = `Il tuo miglior punteggio è stato: <strong>${bestScore}</strong>.`
     }
