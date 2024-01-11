@@ -60,6 +60,19 @@ const generateBombs = (maxCellNumber, bombNumber) => {
     return bombs;
 };
 
+//! gestisco le operazioni in base a se si è pestata la bomba o meno
+
+const hasHitBomb = (bombs, counter) => {
+    let hasHitBomb = false; 
+
+    if (bombs.includes(counter)) {
+        hasHitBomb = true;
+    }
+
+    return hasHitBomb;
+
+};
+
 
 //! La funzione che gestisce il gioco
 
@@ -67,6 +80,9 @@ const startGame = (e) => {
     // *impedisco il reload al submit e svuoto la griglia 
     e.preventDefault();
     gridElement.innerHTML = '';
+
+    //*Gameover
+    let isGameOver = false;
 
     //*Cambio il testo del button
     button.innerText = 'Ricomincia'
@@ -106,18 +122,42 @@ const startGame = (e) => {
     const bombs = generateBombs(cellQuantity, bombNumber)
     logSomething(bombs);
 
+    //*Logica del punteggio
+    const maxScore = cellQuantity - bombNumber;
+
     //* creo tante celle quante rows * cols
     for (let i = 1; i <= cellQuantity; i++) {
         const cell = createCell(i);
 
         //* gestisco il click delle celle
         cell.addEventListener('click', () => {
-            if (!cell.classList.contains('clicked')) {
-                logSomething(i);
-                cell.classList.add('clicked');
+
+            //* se ho premuto il tasto non potrò ripremerlo
+            if (cell.classList.contains('clicked')) {
+                return;
+            } 
+
+            //* se il tasto non l'ho ancora premuto, aggiungo la classe, stampo il numero
+            cell.classList.add('clicked');
+            logSomething(i);
+
+            //*se ho pestato una bomba 
+            if (hasHitBomb(bombs, i)) {
+                cell.classList.add('bomb');
+                logSomething('Hai perso, il tuo punteggio è: ' + score);
+                alert('Hai perso, il tuo punteggio è: ' + score);
+                isGameOver = true;
+            }  else {
                 score++;
                 scoreContainer.innerText = score;
+
+                if(score === maxScore)
+                alert('Hai vinto')
+                isGameOver = true;
             }
+
+                
+            
         });
 
         //!sistemare l'event listener sopra in questa funzione
@@ -140,13 +180,6 @@ form.addEventListener('submit', startGame);
 
 
 //? Mettere la logica all'interno dell'event listener di cell in una funzione 
-
-//! milestone 2
-//generiamo 16 numeri casuali (tutti diversi) nel range della difficoltà prescelta
-//serve il totale bombe ed il massimo punteggio; serve una funzione che genera le bombe
-//la funzione avrà come paramentri il numero di bombe ed il numero di celle in cui si dispongono
-//dentro ci sarà un array che va riempito con 16 numeri casuali ma tutti diversi
-//serve un ciclo while che riempie l'array finche avrà 16 numeri diversi
 
 //! milestone 3
 //quando l'utente clicca su una cella, verifichiamo se la cella che ha premuto è una delle bombe,

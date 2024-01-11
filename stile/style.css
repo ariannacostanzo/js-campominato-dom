@@ -32,6 +32,10 @@ h1 {
     cursor: not-allowed;
 }
 
+.cell.clicked.bomb {
+    background-color: red;
+}
+
 /* Content */
 
 /* HEADER */
@@ -64,6 +68,10 @@ header .score {
 
 main {
     height: 84vh;
+}
+
+h2 {
+    padding-top: 5rem;
 }
 
 .grid-container {
