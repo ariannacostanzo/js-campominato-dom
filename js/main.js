@@ -14,8 +14,11 @@ const closeWin = document.getElementById('close');
 const loseContainer = document.getElementById('lose');
 const closeLose = document.getElementById('close-lose');
 const scoreText = document.getElementById('score-text');
+const bestScorePopup = document.getElementById('best-score-popup');
 const bestScoreContainer = document.getElementById('best-score');
 let bestScore = 0;
+
+bestScoreContainer.innerText = bestScore;
 //! ---------------------
 //! FUNZIONI
 //! ---------------------
@@ -83,7 +86,8 @@ const endGame = (score, hasWon, bombs, revealFunction) => {
         loseContainer.classList.remove('d-none');
         logSomething('Hai perso, il tuo punteggio è: ' + score);
         scoreText.innerHTML = `Il tuo punteggio è: <strong>${score}</strong>.`
-        bestScoreContainer.innerHTML = `Il tuo miglior punteggio è stato: <strong>${bestScore}</strong>.`
+        bestScorePopup.innerHTML = `Il tuo miglior punteggio è stato: <strong>${bestScore}</strong>.`
+        bestScoreContainer.innerText = bestScore;
     }
 
 
