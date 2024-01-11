@@ -13,6 +13,7 @@ const winContainer = document.getElementById('win');
 const closeWin = document.getElementById('close');
 const loseContainer = document.getElementById('lose');
 const closeLose = document.getElementById('close-lose');
+const scoreText = document.getElementById('score-text');
 
 //! ---------------------
 //! FUNZIONI
@@ -77,6 +78,7 @@ const endGame = (score, hasWon, bombs, revealFunction) => {
     } else {
         loseContainer.classList.remove('d-none')
         logSomething('Hai vinto')
+        scoreText.innerHTML = `Il tuo punteggio è: <strong>${score}<strong>`
     }
 
     revealFunction(bombs)

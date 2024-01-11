@@ -124,6 +124,11 @@ h2 {
     margin-top: 3rem;
 }
 
+#score-text {
+    font-size: 1rem;
+    font-weight: normal;
+    margin: 0;
+}
 
 .close {
     text-decoration: none;
