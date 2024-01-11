@@ -1,3 +1,8 @@
+/* css properties */ 
+:root{
+   --rows-per-cols: 10; 
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -26,7 +31,7 @@ h1 {
     background-color: dodgerblue;
 }
 
-.cell.easy{
+/* .cell.easy{
     flex-basis: calc(700px / 10);
     height: calc(700px / 10);
 }
@@ -37,7 +42,7 @@ h1 {
 .cell.hard {
     flex-basis: calc(700px / 7);
     height: calc(700px / 7);
-}
+} */
 
 /* Content */
 
@@ -80,7 +85,8 @@ main {
 
 .cell {
     border: 1px solid black;
-    
+    flex-basis: calc(700px / var(--rows-per-cols));
+    height: calc(700px / var(--rows-per-cols));
     display: flex;
     align-items: center;
     justify-content: center;
