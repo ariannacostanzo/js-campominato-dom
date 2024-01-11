@@ -8,6 +8,7 @@ const gridElement = document.getElementById('grid');
 const form = document.querySelector('form');
 const difficultyLevelElement = document.querySelector('select');
 const button = document.querySelector('button');
+const scoreContainer = document.getElementById('score');
 
 //! ---------------------
 //! FUNZIONI
@@ -28,17 +29,18 @@ const createCell = (content) => {
 
 //! gestisco gli eventi al click della cella
 
-const onCellClick = (e) => {
-    //*Se la cella è stata premuta non potrà essere premuta ancora
-    if (!e.target.classList.contains('clicked')) {
-        logSomething(parseInt(e.target.innerText));
-        e.target.classList.add('clicked');
-    }
+// const onCellClick = (e) => {
+//     //*Se la cella è stata premuta non potrà essere premuta ancora
+//     if (!e.target.classList.contains('clicked')) {
+//         logSomething(parseInt(e.target.innerText));
+//         e.target.classList.add('clicked');
+//     }
     
-};
+// };
 
 
 //! La funzione che gestisce il gioco
+
 const startGame = (e) => {
     // *impedisco il reload al submit e svuoto la griglia 
     e.preventDefault();
@@ -70,12 +72,26 @@ const startGame = (e) => {
     const root = document.querySelector(':root');
     root.style.setProperty('--rows-per-cols', cols);
 
+    //*Creo un contatore per il punteggio
+    let score = 0;
+
+    scoreContainer.innerText = score;
+
     //* creo tante celle quante rows * cols
     for (let i = 1; i <= cellQuantity; i++) {
         const cell = createCell(i);
 
         //* gestisco il click delle celle
-        cell.addEventListener('click', onCellClick)
+        // cell.addEventListener('click', onCellClick);
+
+        cell.addEventListener('click', () => {
+            if (!cell.classList.contains('clicked')) {
+                logSomething(i);
+                cell.classList.add('clicked');
+                score++;
+                scoreContainer.innerText = score;
+            }
+        })
 
         //*aggiungo le celle alla griglia
         gridElement.appendChild(cell);

@@ -55,6 +55,10 @@ header select {
     width: 190px;
 }
 
+header .score {
+    line-height: 40px;
+    height: 40px;
+}
 
 /* MAIN */
 
