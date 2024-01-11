@@ -29,14 +29,36 @@ const createCell = (content) => {
 
 //! gestisco gli eventi al click della cella
 
-// const onCellClick = (e) => {
-//     //*Se la cella è stata premuta non potrà essere premuta ancora
-//     if (!e.target.classList.contains('clicked')) {
-//         logSomething(parseInt(e.target.innerText));
-//         e.target.classList.add('clicked');
-//     }
+//! da sistemare
+// const onCellClick = (event, scoreContainer, score) => {
+//     const cell = event.target;
     
+//     if (!cell.classList.contains('clicked')) {
+//         const cellNumber = parseInt(cell.innerText);
+//         console.log(cellNumber);
+        
+//         cell.classList.add('clicked');
+//         score++;
+//         scoreContainer.innerText = score;
+//     }
 // };
+
+//! gestisco la creazione delle bombe
+
+const generateBombs = (maxCellNumber, bombNumber) => {
+    const bombs = [];
+
+    //*Continuo a generare numeri finche non sono 16 diversi
+    while (bombs.length < bombNumber) {
+        const randomNumber = Math.floor(Math.random() *maxCellNumber) + 1;
+
+        if(!bombs.includes(randomNumber)) {
+            bombs.push(randomNumber);
+        }
+    }
+
+    return bombs;
+};
 
 
 //! La funzione che gestisce il gioco
@@ -75,15 +97,20 @@ const startGame = (e) => {
     //*Creo un contatore per il punteggio
     let score = 0;
 
+    //*Lo stampo in pagina
     scoreContainer.innerText = score;
+
+    //* Logica delle bombe
+    const bombNumber = 16;
+
+    const bombs = generateBombs(cellQuantity, bombNumber)
+    logSomething(bombs);
 
     //* creo tante celle quante rows * cols
     for (let i = 1; i <= cellQuantity; i++) {
         const cell = createCell(i);
 
         //* gestisco il click delle celle
-        // cell.addEventListener('click', onCellClick);
-
         cell.addEventListener('click', () => {
             if (!cell.classList.contains('clicked')) {
                 logSomething(i);
@@ -91,7 +118,12 @@ const startGame = (e) => {
                 score++;
                 scoreContainer.innerText = score;
             }
-        })
+        });
+
+        //!sistemare l'event listener sopra in questa funzione
+        // cell.addEventListener('click', (event) => {
+        //     onCellClick(event, scoreContainer, score);
+        // });
 
         //*aggiungo le celle alla griglia
         gridElement.appendChild(cell);
@@ -99,14 +131,15 @@ const startGame = (e) => {
 };
 
 
+
+
+
 //! Inizio il gioco con il submit del form
 form.addEventListener('submit', startGame);
 
 
 
-//! milestone 1
-//serve un contatore che tiene i punti dell'utente ogni volta che clicca una cella che non è stata cliccata prima
-//mettere il punteggio in pagina, nell'header
+//? Mettere la logica all'interno dell'event listener di cell in una funzione 
 
 //! milestone 2
 //generiamo 16 numeri casuali (tutti diversi) nel range della difficoltà prescelta
