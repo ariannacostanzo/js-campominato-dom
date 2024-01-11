@@ -9,6 +9,10 @@ const form = document.querySelector('form');
 const difficultyLevelElement = document.querySelector('select');
 const button = document.querySelector('button');
 const scoreContainer = document.getElementById('score');
+const winContainer = document.getElementById('win');
+const closeWin = document.getElementById('close');
+const loseContainer = document.getElementById('lose');
+const closeLose = document.getElementById('close-lose');
 
 //! ---------------------
 //! FUNZIONI
@@ -27,21 +31,6 @@ const createCell = (content) => {
     return newCell;
 }
 
-//! gestisco gli eventi al click della cella
-
-//! da sistemare
-// const onCellClick = (event, scoreContainer, score) => {
-//     const cell = event.target;
-    
-//     if (!cell.classList.contains('clicked')) {
-//         const cellNumber = parseInt(cell.innerText);
-//         console.log(cellNumber);
-        
-//         cell.classList.add('clicked');
-//         score++;
-//         scoreContainer.innerText = score;
-//     }
-// };
 
 //! gestisco la creazione delle bombe
 
@@ -81,17 +70,15 @@ const revealAllCells = (bombs) => {
 //! gestisco la vittoria o sconfitta
 
 const endGame = (score, hasWon, bombs, revealFunction) => {
-    let message = '';
 
     if(hasWon) {
-        message = 'Hai vinto';
+        winContainer.classList.remove('d-none');
         logSomething('Hai perso, il tuo punteggio è: ' + score);
     } else {
-        message = `Hai perso, il tuo punteggio è: ${score}`;
+        loseContainer.classList.remove('d-none')
         logSomething('Hai vinto')
     }
 
-    alert(message);
     revealFunction(bombs)
 }
 
@@ -104,9 +91,6 @@ const startGame = (e) => {
     // *impedisco il reload al submit e svuoto la griglia 
     e.preventDefault();
     gridElement.innerHTML = '';
-
-    //*Gameover
-    let isGameOver = false;
 
     //*Cambio il testo del button
     button.innerText = 'Ricomincia'
@@ -189,24 +173,17 @@ const startGame = (e) => {
 };
 
 
+//!Chiudo il popup 'Hai vinto'
+closeWin.addEventListener('click', () => {
+    winContainer.classList.add('d-none');
+});
 
-
+closeLose.addEventListener('click', () => {
+    loseContainer.classList.add('d-none');
+});
 
 //! Inizio il gioco con il submit del form
 form.addEventListener('submit', startGame);
 
 
 
-//? Mettere la logica all'interno dell'event listener di cell in una funzione 
-
-//! milestone 3
-//quando l'utente clicca su una cella, verifichiamo se la cella che ha premuto è una delle bombe,
-//controllando se il numero di cella è nell'array delle bombe, se si la cella diventa rossa, raccogliamo iol punteggio e la
-//partita termina, se no la cella è blu ed incrementa il punteggio, attenzione a fare una logic game over con flag
-//la parte in cui controllo se ha vinto o perso e gli dico il punteggio lo metto in una funzione
-
-//! bonus 
-//alla fine scopri tutte le bombe e poi posso fare in modo che il gioco ricominci
-//richiamando la funzione startGame() che deve avere tutto il codice
-//per rivelare tutte le celle devo andarle a prendere tutte con queryselectorall e poi
-//e dare classlist e fare girare in un ciclo for(let cell of cells) {cell.classlist.add('clicked)}

@@ -95,6 +95,45 @@ h2 {
     cursor: pointer;
 }
 
+/* win */
+
+.my-popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+}
+
+.popup-text {
+    position: absolute;
+    background-color: white;
+    height: 20vh;
+    width: 30vh;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.popup-text p {
+    margin-top: 3rem;
+}
+
+
+.close {
+    text-decoration: none;
+    color: black;
+    font-size: 2rem;
+    position: absolute;
+    top: 0;
+    right: 20px;
+}
+
 /* FOOTER */
 
 footer {
