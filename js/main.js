@@ -14,7 +14,8 @@ const closeWin = document.getElementById('close');
 const loseContainer = document.getElementById('lose');
 const closeLose = document.getElementById('close-lose');
 const scoreText = document.getElementById('score-text');
-
+const bestScoreContainer = document.getElementById('best-score');
+let bestScore = 0;
 //! ---------------------
 //! FUNZIONI
 //! ---------------------
@@ -71,15 +72,20 @@ const revealAllCells = (bombs) => {
 //! gestisco la vittoria o sconfitta
 
 const endGame = (score, hasWon, bombs, revealFunction) => {
-
+    
     if(hasWon) {
         winContainer.classList.remove('d-none');
         logSomething('Hai perso, il tuo punteggio è: ' + score);
     } else {
-        loseContainer.classList.remove('d-none')
-        logSomething('Hai vinto')
-        scoreText.innerHTML = `Il tuo punteggio è: <strong>${score}<strong>`
+        if (score > bestScore) {
+            bestScore = score;
+        }
+        loseContainer.classList.remove('d-none');
+        logSomething('Hai vinto');
+        scoreText.innerHTML = `Il tuo punteggio è: <strong>${score}</strong>.`
+        bestScoreContainer.innerHTML = `Il tuo miglior punteggio è stato: <strong>${bestScore}</strong>.`
     }
+
 
     revealFunction(bombs)
 }
