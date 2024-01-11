@@ -52,34 +52,12 @@ const generateBombs = (maxCellNumber, bombNumber) => {
     while (bombs.length < bombNumber) {
         const randomNumber = Math.floor(Math.random() *maxCellNumber) + 1;
 
-        if(!bombs.includes(randomNumber)) {
-            bombs.push(randomNumber);
-        }
+        if(!bombs.includes(randomNumber)) bombs.push(randomNumber);
+        
     }
 
     return bombs;
 };
-
-//! gestisco le operazioni in base a se si è pestata la bomba o meno
-
-const hasHitBomb = (bombs, counter) => {
-    let hasHitBomb = false; 
-
-    if (bombs.includes(counter)) {
-        hasHitBomb = true;
-    }
-
-    return hasHitBomb;
-
-};
-
-//! gestisco la vittoria o sconfitta
-
-// const hasWon = () => {
-//     let hasWon = false;
-
-    
-// }
 
 //! Rivelo tutte le caselle
 
@@ -99,6 +77,25 @@ const revealAllCells = (bombs) => {
     }
 
 };
+
+//! gestisco la vittoria o sconfitta
+
+const endGame = (score, hasWon, bombs, revealFunction) => {
+    let message = '';
+
+    if(hasWon) {
+        message = 'Hai vinto';
+        logSomething('Hai perso, il tuo punteggio è: ' + score);
+    } else {
+        message = `Hai perso, il tuo punteggio è: ${score}`;
+        logSomething('Hai vinto')
+    }
+
+    alert(message);
+    revealFunction(bombs)
+}
+
+
 
 
 //! La funzione che gestisce il gioco
@@ -160,46 +157,34 @@ const startGame = (e) => {
         cell.addEventListener('click', () => {
 
             //* se ho premuto il tasto non potrò ripremerlo
-            if (cell.classList.contains('clicked')) {
-                return;
-            } 
+            if (cell.classList.contains('clicked')) return
 
             //* se il tasto non l'ho ancora premuto, aggiungo la classe, stampo il numero
             cell.classList.add('clicked');
             logSomething(i);
 
+            const hasHitBomb = bombs.includes(i);
+
             //*se ho pestato una bomba 
-            if (hasHitBomb(bombs, i)) {
+            if (hasHitBomb) {
                 cell.classList.add('bomb');
-                logSomething('Hai perso, il tuo punteggio è: ' + score);
-                alert('Hai perso, il tuo punteggio è: ' + score);
-                isGameOver = true;
+                endGame(score, false, bombs, revealAllCells)
             }  else {
                 score++;
                 scoreContainer.innerText = score;
 
+                //*se ho raggiunto il punteggio massimo
                 if(score === maxScore) {
-                    alert('Hai vinto')
-                isGameOver = true;
+                endGame(score, true, bombs, revealAllCells)
                 }
                 
             }
-
-            if (isGameOver) {
-                revealAllCells(bombs);
-            }
-            
-                
             
         });
 
-        //!sistemare l'event listener sopra in questa funzione
-        // cell.addEventListener('click', (event) => {
-        //     onCellClick(event, scoreContainer, score);
-        // });
-
         //*aggiungo le celle alla griglia
         gridElement.appendChild(cell);
+
     }
 };
 
