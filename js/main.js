@@ -73,6 +73,33 @@ const hasHitBomb = (bombs, counter) => {
 
 };
 
+//! gestisco la vittoria o sconfitta
+
+// const hasWon = () => {
+//     let hasWon = false;
+
+    
+// }
+
+//! Rivelo tutte le caselle
+
+const revealAllCells = (bombs) => {
+    console.log('fine gioco');
+    const cells = document.querySelectorAll('.cell');
+
+    for (let cell of cells) {
+        cell.classList.add('clicked');
+
+        const cellNumber = parseInt(cell.innerText);
+
+        if (bombs.includes(cellNumber)) {
+            cell.classList.add('bomb');
+        }
+        
+    }
+
+};
+
 
 //! La funzione che gestisce il gioco
 
@@ -151,11 +178,17 @@ const startGame = (e) => {
                 score++;
                 scoreContainer.innerText = score;
 
-                if(score === maxScore)
-                alert('Hai vinto')
+                if(score === maxScore) {
+                    alert('Hai vinto')
                 isGameOver = true;
+                }
+                
             }
 
+            if (isGameOver) {
+                revealAllCells(bombs);
+            }
+            
                 
             
         });
