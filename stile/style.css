@@ -29,20 +29,8 @@ h1 {
 
 .cell.clicked {
     background-color: dodgerblue;
+    cursor: not-allowed;
 }
-
-/* .cell.easy{
-    flex-basis: calc(700px / 10);
-    height: calc(700px / 10);
-}
-.cell.normal {
-    flex-basis: calc(700px / 9);
-    height: calc(700px / 9);
-}
-.cell.hard {
-    flex-basis: calc(700px / 7);
-    height: calc(700px / 7);
-} */
 
 /* Content */
 

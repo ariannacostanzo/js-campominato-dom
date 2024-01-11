@@ -3,19 +3,19 @@
 // Todo Creo le celle secondo le dimensioni della griglia
 // Todo Cambio la dimensione delle celle in base al select
 
-// Raccolgo gli elementi della pagina che mi servono
+//! Raccolgo gli elementi della pagina che mi servono
 const gridElement = document.getElementById('grid');
 const form = document.querySelector('form');
 const difficultyLevelElement = document.querySelector('select');
 const button = document.querySelector('button');
 
-//---------------------
-//FUNZIONI
-//---------------------
+//! ---------------------
+//! FUNZIONI
+//! ---------------------
 
 const logSomething = (something) => console.log(something);
 
-//creo la cella
+//! creo la cella
 
 const createCell = (content) => {
 
@@ -26,6 +26,19 @@ const createCell = (content) => {
     return newCell;
 }
 
+//! gestisco gli eventi al click della cella
+
+const onCellClick = (e) => {
+    //*Se la cella è stata premuta non potrà essere premuta ancora
+    if (!e.target.classList.contains('clicked')) {
+        logSomething(parseInt(e.target.innerText));
+        e.target.classList.add('clicked');
+    }
+    
+};
+
+
+//! La funzione che gestisce il gioco
 const startGame = (e) => {
     // *impedisco il reload al submit e svuoto la griglia 
     e.preventDefault();
@@ -61,25 +74,19 @@ const startGame = (e) => {
     for (let i = 1; i <= cellQuantity; i++) {
         const cell = createCell(i);
 
+        //* gestisco il click delle celle
+        cell.addEventListener('click', onCellClick)
 
-        //* gestisco il cambio colore al click delle celle
-        cell.addEventListener('click', () => {
-            logSomething(i);
-            cell.classList.toggle('clicked');
-        })
-
+        //*aggiungo le celle alla griglia
         gridElement.appendChild(cell);
     }
 };
 
 
-
-//Inizio il gioco con il submit del form
+//! Inizio il gioco con il submit del form
 form.addEventListener('submit', startGame);
 
 
-
-//le celle vanno cliccate solo una volta ed il colore non è toggle
 
 //! milestone 1
 //serve un contatore che tiene i punti dell'utente ogni volta che clicca una cella che non è stata cliccata prima
