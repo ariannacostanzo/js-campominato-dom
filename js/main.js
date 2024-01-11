@@ -117,12 +117,10 @@ const startGame = (e) => {
         case 'normal':
             rows = 9;
             cols = 9;
-            bestScore = 0;
             break;
         case 'hard': 
             rows = 7;
             cols = 7;
-            bestScore = 0;
             break;
     }
 
